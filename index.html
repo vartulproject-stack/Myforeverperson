@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I'm So Sorry Darlo ❤️</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f5ede8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .heart-bg {
+      position: absolute;
+      color: rgba(255, 182, 193, 0.4);
+      font-size: 20px;
+      animation: float 6s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      text-align: center;
+      max-width: 360px;
+      width: 90%;
+      position: relative;
+      z-index: 10;
+      display: none;
+      animation: fadeIn 0.5s ease-in-out forwards;
+    }
+
+    .card.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .sticker {
+      width: 130px;
+      height: 130px;
+      object-fit: contain;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      color: #333;
+      font-size: 20px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    p {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    /* Highlighted Name Style */
+    .highlight-name {
+      color: #e65c7b;
+      font-weight: bold;
+      font-size: 18px;
+      text-transform: capitalize;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 15px;
+      position: relative;
+      min-height: 50px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border-radius: 20px;
+      border: none;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-no {
+      background-color: #f0f0f0;
+      color: #777;
+    }
+
+    .btn-yes {
+      background-color: #2b2d42;
+      color: white;
+    }
+
+    .btn-pink {
+      background-color: #e65c7b;
+      color: white;
+      width: 100%;
+    }
+
+    .arch-card {
+      background-size: cover;
+      background-position: center;
+      border-radius: 120px 120px 20px 20px;
+      padding: 60px 20px;
+      border: 4px solid #f8bbd0;
+      cursor: pointer;
+    }
+
+    .progress-box {
+      width: 100%;
+      background-color: #eee;
+      border-radius: 10px;
+      height: 18px;
+      margin: 15px 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background-color: #e65c7b;
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      top: 2px;
+      font-size: 11px;
+      color: #555;
+      font-weight: bold;
+    }
+
+    .heart-tap-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #e65c7b;
+      color: white;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 15px auto 0;
+      box-shadow: 0 4px 10px rgba(230, 92, 123, 0.4);
+      user-select: none;
+      cursor: pointer;
+    }
+
+    .heart-tap-btn:active {
+      transform: scale(0.9);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Audio -->
+  <audio id="bgMusic" loop>
+    <source src="m.mp3" type="audio/mpeg">
+  </audio>
+
+  <div id="heart-container"></div>
+
+  <!-- Screen 1 -->
+  <div class="card active" id="screen1">
+    <img class="sticker" src="b1.gif" alt="Cute Gif">
+    <h2><span class="highlight-name">Darlo</span>, are you still 100% angry at me?</h2>
+    <div class="btn-container">
+      <button class="btn-no" onclick="nextScreen(3); playMusic();">No, Not Really...</button>
+      <button class="btn-yes" id="yesBtn" onmouseover="moveButton()" onclick="nextScreen(2)">YES, I AM! 😤</button>
+    </div>
+  </div>
+
+  <!-- Screen 2 -->
+  <div class="card" id="screen2">
+    <img class="sticker" src="b2.gif" alt="Sad Gif">
+    <h2>Okay <span class="highlight-name">Darlo</span>... my heart is actually breaking 💔</h2>
+    <p>I know I messed up. Please just... give me one chance to explain? 🥺</p>
+    <button class="btn-pink" onclick="nextScreen(3); playMusic();">Fine... I'll listen 🥺</button>
+  </div>
+
+  <!-- Screen 3 -->
+  <div class="card arch-card" id="screen3" onclick="nextScreen(4); playMusic();">
+    <img class="sticker" src="b3.jpeg" alt="Open Card" style="width: 100%; height: auto;">
+    <p style="font-weight: bold; color: #e65c7b; margin-top: 10px;">CLICK TO OPEN FOR <span class="highlight-name">DARLO</span> ❤️</p>
+  </div>
+
+  <!-- Screen 4 -->
+  <div class="card" id="screen4">
+    <p style="font-size: 11px; letter-spacing: 2px; color: #aaa;">A VIRTUAL PEACE OFFERING FOR <span class="highlight-name">DARLO</span> ✨</p>
+    <p style="text-align: left; margin-top: 10px; font-style: italic;">
+      My dearest <span class="highlight-name">Darlo</span>, I am so so sorry for being such a silly bear lately. I've realized how much I hurt you, and it breaks my heart to see you upset. You mean the world to me, and I promise to be better, more patient, and way more cuddly! Will you please forgive me? 🙏
+    </p>
+    <img class="sticker" src="b4.jpeg" alt="Letter Sticker" style="width: 100px; height: 100px;">
+    <button class="btn-pink" onclick="nextScreen(5)">Next 💕</button>
+  </div>
+
+  <!-- Screen 5 -->
+  <div class="card" id="screen5">
+    <p style="font-size: 11px; letter-spacing: 2px; color: #aaa;">FORGIVENESS METER ❤️</p>
+    <img class="sticker" src="b5.gif" alt="Sorry Gif">
+    
+    <div class="progress-box">
+      <div class="progress-bar" id="progressBar"></div>
+      <div class="progress-text" id="progressText">0% FORGIVEN</div>
+    </div>
+
+    <p style="font-size: 12px; font-weight: bold; color: #e65c7b;">TAP THE HEART TO HEAL MY HEART <span class="highlight-name">DARLO</span>!</p>
+    <div class="heart-tap-btn" onclick="increaseForgiveness()">❤️</div>
+  </div>
+
+  <!-- Screen 6 -->
+  <div class="card" id="screen6">
+    <img class="sticker" src="b6.gif" alt="Happy Gif">
+    <h2>Yaaay! 100% Forgiven! 🎉❤️</h2>
+    <p>I love you so much <span class="highlight-name">Darlo</span>! Thank you for forgiving me! 🍦🧸</p>
+    <button class="btn-pink" onclick="nextScreen(7)">Read My Heart 💌 ➡️</button>
+  </div>
+
+  <!-- Screen 7: Extra Special Message Layer for Darlo -->
+  <div class="card" id="screen7">
+    <img class="sticker" src="b6.gif" alt="Love Gif">
+    <h2><span class="highlight-name">Darlooo...</span> ❤️</h2>
+    <p style="font-size: 13px; font-style: italic; color: #444; line-height: 1.6; text-align: center;">
+      You're my everything, you're my day, my night, my evening. From sleeping to waking, you're the only one I remember every time. While doing work you're the one I miss every time... beside every dream there is one reason, it's you!
+      <br><br>
+      <b>I loveee uhhhh <span class="highlight-name">Darlooo</span> i loveee uhhhh sooo much wapas meri ban jaiye!!!! 🥺❤️✨</b>
+    </p>
+  </div>
+
+  <script>
+    function playMusic() {
+      const music = document.getElementById('bgMusic');
+      music.play().catch(e => console.log("Audio play blocked by browser"));
+    }
+
+    function nextScreen(screenNum) {
+      document.querySelectorAll('.card').forEach(card => card.classList.remove('active'));
+      document.getElementById('screen' + screenNum).classList.add('active');
+    }
+
+    function moveButton() {
+      const btn = document.getElementById('yesBtn');
+      const x = Math.random() * (window.innerWidth - 150) - (window.innerWidth / 2 - 75);
+      const y = Math.random() * (window.innerHeight - 100) - (window.innerHeight / 2 - 50);
+      btn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    let percent = 0;
+    function increaseForgiveness() {
+      if (percent < 100) {
+        percent += 20;
+        document.getElementById('progressBar').style.width = percent + '%';
+        document.getElementById('progressText').innerText = percent + '% FORGIVEN';
+
+        if (percent === 100) {
+          setTimeout(() => {
+            nextScreen(6);
+          }, 400);
+        }
+      }
+    }
+
+    const heartContainer = document.getElementById('heart-container');
+    for (let i = 0; i < 15; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart-bg';
+      heart.innerText = '🌸';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDelay = Math.random() * 5 + 's';
+      heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+      heartContainer.appendChild(heart);
+    }
+  </script>
+</body>
+</html>
+
